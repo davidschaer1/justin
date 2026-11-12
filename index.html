@@ -480,12 +480,10 @@ button{font:inherit;color:inherit;touch-action:manipulation;cursor:pointer}
           <ul class="t-list">
             <li><span>✅</span><span>Anreise von St. Gallen nach Bregenz</span></li>
             <li><span>✅</span><span>Eintritt</span></li>
-            <li><span>✅</span><span>Startguthaben: <span class="js-amount"></span> EUR</span></li>
+            <li><span>✅</span><span>Kleines Startguthaben</span></li>
             <li><span>📅</span><span>Datum: <span class="js-date"></span></span></li>
           </ul>
           <div class="t-fine">
-            <p>* Gewinne werden brüderlich geteilt. Verluste trägst du allein.</p>
-            <p>* Ausweis nicht vergessen. Ohne kommst du nicht rein, auch nicht mit 20.</p>
             <p>* Nicht übertragbar, nicht umtauschbar, nicht verhandelbar.</p>
           </div>
         </div>
@@ -515,7 +513,6 @@ button{font:inherit;color:inherit;touch-action:manipulation;cursor:pointer}
    KONFIGURATION – hier anpassen
    ========================================================= */
 const CONFIG = {
-  betrag: "[BETRAG]",            // z. B. "50"
   datum: "nach Absprache",       // z. B. "Samstag, 5. Dezember 2026"
   insiderJoke: "[INSIDER-JOKE]"  // geheime Nachricht (5x aufs Logo tippen)
 };
@@ -530,7 +527,6 @@ const rand = (a, b) => a + Math.random() * (b - a);
 const pick = arr => arr[Math.floor(Math.random() * arr.length)];
 const vibrate = p => { try { navigator.vibrate && navigator.vibrate(p); } catch (e) {} };
 
-document.querySelectorAll(".js-amount").forEach(e => e.textContent = CONFIG.betrag);
 document.querySelectorAll(".js-date").forEach(e => e.textContent = CONFIG.datum);
 $("#secretText").textContent = CONFIG.insiderJoke;
 
@@ -1213,7 +1209,7 @@ async function drawTicketPNG() {
   c.fillText("🚆   🎟️   🪙", W / 2, y + 505);
   // Liste
   c.textAlign = "left";
-  const items = [["✅", "Anreise von St. Gallen nach Bregenz"], ["✅", "Eintritt"], ["✅", `Startguthaben: ${CONFIG.betrag} EUR`], ["📅", `Datum: ${CONFIG.datum}`]];
+  const items = [["✅", "Anreise von St. Gallen nach Bregenz"], ["✅", "Eintritt"], ["✅", "Kleines Startguthaben"], ["📅", `Datum: ${CONFIG.datum}`]];
   let ly = mid + 100;
   for (const [ic, t] of items) {
     c.font = "46px 'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif";
@@ -1223,7 +1219,7 @@ async function drawTicketPNG() {
   }
   c.fillStyle = "#5b3300"; c.font = "italic 600 28px Nunito, system-ui, sans-serif";
   ly += 6;
-  for (const t of ["* Gewinne werden brüderlich geteilt. Verluste trägst du allein.", "* Ausweis nicht vergessen. Ohne kommst du nicht rein, auch nicht mit 20.", "* Nicht übertragbar, nicht umtauschbar, nicht verhandelbar."]) {
+  for (const t of ["* Nicht übertragbar, nicht umtauschbar, nicht verhandelbar."]) {
     ly = wrap(c, t, x + 80, ly, w - 160, 36) + 6;
   }
   // Fusszeile
